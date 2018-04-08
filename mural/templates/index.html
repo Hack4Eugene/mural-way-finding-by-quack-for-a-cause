@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta name=“apple-mobile-web-app-capable” content=“yes”>
+  <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+  <meta charset="utf-8">
+  <title>CurateEug</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <link rel=stylesheet type=text/css href="{{ url_for('static', filename='base.css') }}">
+  <link rel="icon" href="./static/pins/Pin_Selected.png" type="image/png" sizes="32x32">
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAL6IaEI1c3I673mcHOiL6xIiLVG2ijzjM&callback=initMap" async defer></script>
+  <script defer src="https://use.fontawesome.com/releases/v5.0.9/js/all.js" integrity="sha384-8iPTk2s/jMVj81dnzb/iFR2sdA7u06vHJyyLlAd4snFpCl/SnyUjRrbdJsw1pGIl" crossorigin="anonymous"></script>
+</head>
+
+<body class="noscroll">
+  <button id="fullScreenButton"><i class="fas fa-expand"></i></button>
+  <div id="header">
+    <img id="logo" src="/static/logos/WordmarkSans_NoBG.png">
+  </div>
+
+  <!-- Mural Carousel Container -->
+  <div id="carouselContainer" class="container-fluid">
+
+    <div id="myCarousel" class="carousel slide" data-ride="carousel">
+      <!-- Indicators -->
+      <ol class="carousel-indicators">
+        <li data-target="#myCarousel" data-slide-to="0" class="aactive"></li>
+        <li data-target="#myCarousel" data-slide-to="1"></li>
+        <li data-target="#myCarousel" data-slide-to="2"></li>
+        <li data-target="#myCarousel" data-slide-to="3"></li>
+        <li data-target="#myCarousel" data-slide-to="4"></li>
+        <li data-target="#myCarousel" data-slide-to="5"></li>
+        <li data-target="#myCarousel" data-slide-to="6"></li>
+        <li data-target="#myCarousel" data-slide-to="7"></li>
+        <li data-target="#myCarousel" data-slide-to="8"></li>
+        <li data-target="#myCarousel" data-slide-to="9"></li>
+        <li data-target="#myCarousel" data-slide-to="10"></li>
+      </ol>
+      <!-- Wrapper for slides -->
+      <div class="carousel-inner">
+        {% for mural in murals %}
+        {% if loop.index == 1 %}
+        <div class="carousel-item active">
+        {% else %}
+        <div class="carousel-item">
+        {% endif %}
+          <a href="/mural/{{mural[0]}}">
+          <img id="mural-{{ mural[0] }}" src="../static/img/{{ mural[5] }}/landing.jpg" alt="Pic {{ mural[0] }}" class="car-img">
+          <div class="carousel-caption">
+            <p class="carousel-caption-left">{{ mural[3] }}</p>
+            <p class="carousel-caption-right">{{ mural[4] }}</p>
+          </div>
+          </a>
+        </div>
+        {% endfor %}
+
+      </div>
+      <!-- Left and right controls -->
+      <a class="carousel-control-prev media" href="#myCarousel" role="button" data-slide="prev">
+        <span class="carousel-control-prev-icon"></span>
+        <span class="sr-only">Previous</span>
+      </a>
+      <a class="carousel-control-next media" href="#myCarousel" role="button" data-slide="next">
+        <span class="carousel-control-next-icon"></span>
+        <span class="sr-only">Next</span>
+      </a>
+    </div>
+  </div>
+  <!---Dynamic Map Container--->
+  <div class="container-fluid">
+    <div id="map"></div>
+    <script>
+
+    var fullscreenFlag = false;
+    var allMuralData = [];
+    var allMarkers = [];
+    var icons;
+
+      var map, panorama;
+      function initMap() {
+        var myLatLng = {
+          lat: {{murals[0][1]+0.001}},
+          lng: {{murals[0][2]}}
+        };
+
+        map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 16,
+          center: myLatLng,
+          disableDefaultUI: true,
+          navigationControl: false,
+          mapTypeControl: false,
+          scaleControl: false,
+          draggable: false
+        });
+
+        var iconBase = '/static/pins/';
+        icons = {
+          muralSelected: {
+            icon: iconBase + 'Pin_Selected.png'
+          },
+          gallerySelected: {
+            icon: iconBase + 'Pin_SelectedGallery.png'
+          },
+          musicSelected: {
+            icon: iconBase + 'Pin_SelectedMusic.png'
+          },
+          statueSelected: {
+            icon: iconBase + 'Pin_SelectedStatue.png'
+          },
+          muralUnselected: {
+            icon: iconBase + 'Pin_Unselected.png'
+          },
+          galleryUnselected: {
+            icon: iconBase + 'Pin_UnselectedGallery.png'
+          },
+          musicUnselected: {
+            icon: iconBase + 'Pin_UnselectedMusic.png'
+          },
+          statueUnselected: {
+            icon: iconBase + 'Pin_UnselectedStatue.png'
+          },
+        };
+
+        {% for mur in murals %}
+          allMuralData.push([{{mur[1]}},{{mur[2]}}]);
+          var muralLatLng = {
+            lat: {{mur[1]}},
+            lng: {{mur[2]}}
+          }
+
+          var muralMarker = new google.maps.Marker({
+            position: muralLatLng,
+            map: map,
+            title: "{{ mur[0] }}",
+            type: 'muralSelected',
+            {% if mur[0] == 1 %}
+            icon: icons['muralSelected'].icon,
+            {% else %}
+            icon: icons['muralUnselected'].icon,
+            {% endif %}
+          });
+
+          allMarkers.push(muralMarker);
+
+          muralMarker.addListener('click', function(event) {
+            if (fullscreenFlag == false) {
+              location.href = "/mural/{{mur[0]}}";
+            } else {
+              lerpWindow();
+              $(".carousel").carousel({{mur[0]}} - 1);
+            }
+          });
+        {% endfor %}
+    }
+    </script>
+    <script src="{{url_for('static', filename='mapScript.js')}}"></script>
+  </div>
+
+</body>
+
+</html>
