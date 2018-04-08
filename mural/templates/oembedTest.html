@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+  <meta charset="utf-8">
+  <title>{{ Mural.artistName }}</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <!-- <link rel=stylesheet type=text/css href="{{ url_for('static', filename='base.css') }}"> -->
+  <link rel=stylesheet type=text/css href="{{ url_for('static', filename='content.css') }}">
+
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script> -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/lodash.js/0.10.0/lodash.min.js"></script>
+  <script src="{{url_for('static', filename='contentView.js')}}"></script>
+
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAL6IaEI1c3I673mcHOiL6xIiLVG2ijzjM&callback=initMap" async defer></script>
+
+  <style>
+      div.hint{
+          overflow: hidden;
+
+          font-weight: bold;
+          transition: height 1s, width 1s, padding 1s, visibility 1s, opacity 0.5s ease-out;
+        }
+
+    </style>
+
+</head>
+<body>
+    <div id="header" class="container-fluid">
+        <img id="logo" src="/static/logos/WordmarkSans_NoBG.png">
+    </div>
+  <div id= "street-view" class="container-fluid" style="height: 35%">
+    <script>
+      var panorama;
+      function initMap() {
+        panorama = new google.maps.StreetViewPanorama(
+            document.getElementById('street-view'),
+            {
+              position: {lat: {{ Mural.latitude }}, lng: {{ Mural.longitude }} },
+              pov: {heading: {{ Mural.heading }}, pitch: {{ Mural.pitch }} },
+              zoom: {{ Mural.zoom }},
+            });
+      }
+    </script>
+  </div>
+
+    <div id = "info-stream" class = "container-fluid">
+    <div class="row">
+      <div class="col-6 boxes">
+        <button onclick="show('info', 'about', 'bio')" class="tile" style="background-image: url( '../static/img/{{Mural.photoPathName}}/info.jpg' );" id="infoButton">Info</button>
+      </div>
+      <div class="col-6 boxes">
+          <button onclick="show('about', 'info', 'bio')" class="tile" style="background-image: url( '../static/img/{{Mural.photoPathName}}/about.jpg');" id="aboutButton">About</button>
+      </div>
+    </div>
+
+    <div class='hint row'>
+        <div class="col-12 hiddenrow boxes">
+            <div class="infoView">
+              <p>{{Mural.description}}</p>
+          </div>
+          </div>
+    </div>
+
+    <div class="hint row">
+        <div class="col-12 hiddenrow boxes">
+        
+        <div class="infoView">
+          <p>
+            <img src="../static/logos/Bullet_Pin.png" style="width:32px;height:32px;">{{Mural.muralName}}</img><br>
+            <img src="../static/logos/Bullet_Pin.png" style="width:32px;height:32px;">{{Mural.artistName}}</img><br>
+            <img src="../static/logos/Bullet_Globe.png" style="width:32px;height:32px;">{{Mural.country}}</img><br>
+            <img src="../static/logos/Bullet_Date.png" style="width:32px;height:32px;">{{Mural.dateInTown}}</img><br>
+            <img src="../static/logos/Bullet_Globe.png" style="width:32px;height:32px;">{{Mural.locationDesc}}</img><br>
+            <img src="../static/logos/Bullet_Net.png" style="width:32px;height:32px;"><a href="{{Mural.website}}">{{Mural.website}}</a></img>
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-6 boxes"><button onclick="show('bio', 'info', 'about')" class="tile" style="background-image: url('../static/img/{{Mural.photoPathName}}/bio.jpg');" id="bioButton">Bio</button></div>
+
+      <div class="col-6 boxes">
+        <div class="tile">
+          <div class="flip-container" ontouchstart="this.classList.toggle('hover');">
+            <div class="flipper">
+              <div class="front">
+                <img src="../static/img/{{Mural.photoPathName}}/after.jpg">
+              </div>
+              <div class="back">
+                {% if Mural.hasBeforeShot %}
+                <img src="../static/img/{{Mural.photoPathName}}/before.jpg">
+                {% else %}
+                <img src="../static/img/{{Mural.photoPathName}}/after.jpg">
+                {% endif %}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- <div class="row">
+      <div class="col-6 boxes"><div class="tile">Youtube</div></div>
+      <div class="col-6 boxes"><div class="tile"></div></div>
+    </div> -->
+<div class="hint row">
+<div class="col-12 hiddenrow boxes">
+      
+        <div class="infoView">
+          <p>
+            {{Mural.artistDesc}}
+          </p>
+        </div>
+      </div>
+    </div>
+    </div>
+
+    <script type="text/javascript">
+        var infoBtn = document.getElementById('infoButton');
+        var hint = document.getElementsByClassName('hint');
+
+        console.log(hint);
+
+        var aboutBtn = document.getElementById('aboutButton');
+        var bioBtn = document.getElementById('bioButton');
+
+        registerResizeText(infoBtn, hint[0], hint[1], hint[2]);
+        registerResizeText(aboutButton, hint[1], hint[0], hint[2]);
+        registerResizeText(bioButton, hint[2], hint[0], hint[1]);
+
+        hint[0].classList.add('d-none');
+        hint[1].classList.add('d-none');
+        hint[2].classList.add('d-none');
+
+        function registerResizeText(btn, triggerHint, hint2, hint3) {
+            var height = triggerHint.clientHeight;
+            var width = triggerHint.clientWidth;
+            console.log(width + 'x' + height);
+            // initialize them (within hint.style)
+            triggerHint.style.height = height + 'px';
+            triggerHint.style.width = width + 'px';
+
+            btn.addEventListener('click', function(){
+              if(triggerHint.style.visibility == 'hidden'){
+                triggerHint.style.visibility = 'visible';
+                //hint.style.opacity = '1';
+                triggerHint.style.height = height + 'px';
+                triggerHint.style.width = width + 'px';
+                triggerHint.style.display = 'block';
+                triggerHint.classList.remove('d-none');
+              }
+              else{
+                triggerHint.style.visibility = 'hidden';
+                //hint.style.opacity = '0';
+                triggerHint.style.height = '0';
+                triggerHint.style.width = '0';
+                triggerHint.style.padding = '0';
+              }
+              hint2.style.visibility = 'hidden';
+                //hint.style.opacity = '0';
+                hint2.style.height = '0';
+                hint2.style.width = '0';
+                hint2.style.padding = '0';
+            hint3.style.visibility = 'hidden';
+                //hint.style.opacity = '0';
+                hint3.style.height = '0';
+                hint3.style.width = '0';
+                hint3.style.padding = '0';
+            });
+        }
+    </script>
+</body>
+</html>

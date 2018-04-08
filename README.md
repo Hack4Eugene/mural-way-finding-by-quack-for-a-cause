@@ -1,1 +1,2 @@
-# mural-way-finding-by-quack-for-a-cause
+# QuackForACauseMural
+Quack For A Cause Mural Project

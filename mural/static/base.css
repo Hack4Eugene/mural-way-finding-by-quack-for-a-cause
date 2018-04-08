@@ -1,0 +1,194 @@
+html, body {
+  margin: 0;
+  height: 100%;
+}
+
+.carousel-caption {
+  padding-top: 0;
+  padding-bottom: 0;
+  bottom: 0;
+  font-weight: 700;
+}
+
+.carousel-caption-left {
+  font-size: 4vw;
+  font-weight: 700;
+}
+
+.carousel-caption-right {
+}
+
+#header {
+  position: absolute;
+  background-color: #202833;
+  height: 7%;
+  width: 100%;
+  z-index: 10;
+}
+
+#logo {
+  height: 100%;
+  margin-left: 25px;
+  margin-top: 10px;
+}
+
+#fullScreenButton{
+  position:absolute;
+  z-index: 1;
+  background-color: red;
+  color: white;
+  font-size: 25px;
+  padding-left: 7px;
+  padding-right: 7px;
+  right: 25px;
+  bottom: 40px;
+  height: 40px;
+  width: 40px;
+  visibility: visible;
+  box-shadow: 0px 2px 4px 1px rgba(0, 0, 0, 0.25);
+  -webkit-box-shadow: 0px 2px 4px 1px rgba(0, 0, 0, 0.25);
+  -moz-box-shadow: 0px 2px 4px 1px rgba(0, 0, 0, 0.25);
+}
+
+#fullScreenButton, input, textarea {
+-webkit-appearance: none;
+-webkit-border-radius: 0;
+}
+
+#fullScreenButton svg {
+  display: block !important;
+}
+
+/* to the body element */
+.noscroll { overflow: hidden; }
+
+.overlay {
+   position: fixed;
+   overflow-y: scroll;
+   top: 0; right: 0; bottom: 0; left: 0; }
+
+[aria-hidden="true"] { display: none; }
+[aria-hidden="false"] { display: block; }
+
+
+
+.home #hgroup-wrap { display: none; }
+
+.container-fluid {
+  padding: 0;
+  text-align: center;
+  max-width: unset;
+}
+
+#map {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+}
+
+#carouselContainer {
+  height: 34%;
+  text-align: center;
+  position: absolute;
+  z-index: 1;
+  top: 7%;
+}
+
+.carousel {
+  padding: 0;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+  border-bottom: 5px #202833 solid;
+}
+
+.carousel-inner {
+  height: 100%;
+  background-color: white;
+}
+
+.carousel-control-next, .carousel-control-prev,.carousel-control-next:hover, .carousel-control-prev:hover,
+.carousel-control-next:focus, .carousel-control-prev:focus {
+  background-color: black;
+  opacity: 0.1;
+}
+
+.carousel-control-next:active, .carousel-control-prev:active {
+  background-color: black;
+  opacity: 0.3;
+}
+
+.car-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.carousel-indicators {
+  margin-right: 25%;
+  margin-left: 25%;
+  top: 10px;
+  bottom: 0;
+  height: 20px !important;
+}
+
+.carousel-indicators li {
+  width: 15px;
+  /* height: 10px; */
+}
+
+@media (min-width : 1224px) {
+  .car-img {
+    margin-top: -80px;
+  }
+}
+
+@media (orientation:landscape) {
+  .car-img {
+    width: 50%;
+  }
+
+  #myCarousel {
+    height: 100%;
+  }
+
+  .carousel {
+    height: 45%;
+  }
+
+  .carousel-control-next, .carousel-control-prev {
+    width: 25%;
+  }
+
+  .carousel-caption {
+    font-size: 2vw;
+    bottom: 60px;
+  }
+
+  .carousel-caption-left {
+    font-size:2vw;
+  }
+
+}
+
+@media only screen and (max-width: 1080px) {
+     #banner-area-wrapper {display: none;}
+}
+
+@supports (-webkit-overflow-scrolling: touch) {
+  #fullScreenButton{
+    position:absolute;
+    z-index: 1;
+    color: #202833;
+    font-size: 25px;
+    padding-left: 7px;
+    padding-right: 7px;
+    right: 25px;
+    bottom: 40px;
+    height: 40px;
+    width: 40px;
+    visibility: visible;
+    box-shadow: 0px 2px 4px 1px rgba(0, 0, 0, 0.25);
+    -webkit-box-shadow: 0px 2px 4px 1px rgba(0, 0, 0, 0.25);
+    -moz-box-shadow: 0px 2px 4px 1px rgba(0, 0, 0, 0.25);
+  }
+}
