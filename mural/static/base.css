@@ -35,7 +35,8 @@ html, body {
 #fullScreenButton{
   position:absolute;
   z-index: 1;
-  color: #202833;
+  background-color: red;
+  color: white;
   font-size: 25px;
   padding-left: 7px;
   padding-right: 7px;
