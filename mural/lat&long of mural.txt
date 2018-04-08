@@ -1,0 +1,11 @@
+Acidum Project {44.049731, -123.093518} facing west
+Beau Station {44.048542, -123.094209} facing east
+Steven Lopez {44.057074, -123.097944}
+Hua Tunan {44.055901, -123.098809}
+Hush {44.045268, -123.092045}
+Ila Rose {44.056341, -123.097795}
+Telmo Miel {44.049603, -123.095623}
+Blek le Rat {44.048999, -123.091260}
+Franco Fasoli aka JAZ {44.048658, -123.092892}
+Dan Witz {44.049858, -123.094117}
+Hyuro{44.047843, -123.094749}

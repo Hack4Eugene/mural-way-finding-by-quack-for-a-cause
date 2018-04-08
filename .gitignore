@@ -1,0 +1,4 @@
+# GIT IGNORE
+# Files in the following directories will NOT be added to the repo
+Flask_App/
+*.pyc
